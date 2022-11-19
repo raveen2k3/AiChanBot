@@ -90,7 +90,7 @@ async def ai(Client:neko, message):
         final_text=ai_gen
         await neko.send_message(chat_id=chat_id ,text=final_text , reply_to_message_id=message.id)
 
-@neko.on_message(filters.command(commands=["@AiChan69Bot"]))
+@neko.on_message(filters.regex("@AiChan69Bot"))
 async def username(Client:neko, message):
     chat_id = message.chat.id
     text = message.text
