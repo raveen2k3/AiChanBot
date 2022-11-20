@@ -72,25 +72,30 @@ async def about(client:neko,message):
 @neko.on_message(filters.text, group=100)
 async def ai(Client:neko, message):
     chat_id = message.chat.id
-    text = message.text
-    ai_gen = requests.get(f"http://Iseria.up.railway.app/api={luna_key}/prompt={text}").json()
-    if "Luna" in ai_gen:
-        final_text1 = ai_gen.replace("Luna","Aichan")
-        await neko.send_message(chat_id=chat_id ,text=final_text1 , reply_to_message_id=message.id)
+    bot_id =int(1876246009)
+    msg=await neko.get_messages(chat_id, message.id)
+    if msg.reply_to_message and msg.reply_to_message.from_user.id== bot_id:
+        ai_gen = requests.get(f"http://Iseria.up.railway.app/api={luna_key}/prompt={msg}").json()
+        if "Luna" in ai_gen:
+            final_text1 = ai_gen.replace("Luna","Aichan")
+            await neko.send_message(chat_id=chat_id ,text=final_text1 , reply_to_message_id=message.id)
 
-    elif "STB" in ai_gen:
-        final_text2= ai_gen.replace("STB","@ProjectBaka")
-        await neko.send_message(chat_id=chat_id ,text=final_text2 , reply_to_message_id=message.id)
+        elif "STB" in ai_gen:
+            final_text2= ai_gen.replace("STB","@ProjectBaka")
+            await neko.send_message(chat_id=chat_id ,text=final_text2 , reply_to_message_id=message.id)
 
-    elif "/guidelines" in text:
-        print("uff exception")
-    elif "/start" in text:
-        print("kek")
-    else:
-        final_text=ai_gen
-        await neko.send_message(chat_id=chat_id ,text=final_text , reply_to_message_id=message.id)
-
-@neko.on_message(filters.command(commands=["@AiChan69Bot"]))
+        elif "/guidelines" in message.text:
+            print("uff exception")
+        elif "/start" in message.text:
+            print("kek")
+        elif "/about" in message.text:
+            print("exception")
+        else:
+            final_text=ai_gen
+            await neko.send_message(chat_id=chat_id ,text=final_text , reply_to_message_id=message.id)
+            
+#rename the command handler
+@neko.on_message(filters.command(commands=["AiChan69Bot"] , prefixes="@"))
 async def username(Client:neko, message):
     chat_id = message.chat.id
     text = message.text
