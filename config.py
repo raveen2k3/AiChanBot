@@ -1,13 +1,16 @@
 from pyrogram import Client
-api_hash = " "
+from os import getenv
+from dotenv import load_dotenv
 
-api_id = int(" ")
 
-bot_token = " "
-OwnerId=int()#your id its database
+load_dotenv()
+API_HASH = getenv("API_HASH")
+API_ID = int(getenv("API_ID"))
+TOKEN = getenv("TOKEN")
+OWNERID = int(getenv("OWNERID"))  # your userid
+BOT_ID = int(getenv("BOT_ID"))
+DB_URL = getenv("DB_URL")
+DB_NAME = getenv("DB_NAME")
 
-DB_URL = " "
-
-DB_NAME =""
-
-neko = Client(name="aichan" , api_hash= api_hash , api_id=api_id , bot_token=bot_token , plugins={"root": "modules"})
+neko = Client(name="aichan", api_hash=API_HASH, api_id=API_ID,
+              bot_token=TOKEN, plugins={"root": "modules"})
