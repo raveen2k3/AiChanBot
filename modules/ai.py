@@ -6,12 +6,10 @@ from config import neko, BOT_ID
 
 @neko.on_message(filters.text, group=100)
 async def ai(_, message: Message):
-    chat_id = message.chat.id
-    msg=await neko.get_messages(chat_id, message.id)
-    if msg.reply_to_message and msg.reply_to_message.from_user.id == BOT_ID:
+    if message.reply_to_message and message.reply_to_message.from_user.id == BOT_ID
         ai_gen = requests.get(f"https://apikatsu.otakatsu.studio/api/chatbot/Iseria?message={message.text}", timeout=5).json()["response"]
         print(ai_gen)
-        await neko.send_message(chat_id=chat_id ,text=ai_gen , reply_to_message_id=message.id)
+        await neko.send_message(chat_id=message.chat.id ,text=ai_gen , reply_to_message_id=message.id)
 
     
 
